@@ -167,9 +167,9 @@ class RecoWidget extends HTMLElement {
     };
 
     try {
-      // this.shadowRoot.appendChild(template.content.cloneNode(true));
-      this.shadowRoot.appendChild(widgetScript);
-      // renderWidget();
+      this.shadowRoot.appendChild(template.content.cloneNode(true));
+      // this.shadowRoot.appendChild(widgetScript);
+      renderWidget();
     } catch (error) {
       console.log("error: ", error);
     }
