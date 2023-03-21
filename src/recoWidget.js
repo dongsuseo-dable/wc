@@ -143,6 +143,8 @@ class RecoWidget extends HTMLElement {
         if (index === 1 || index === 3) {
           const videoEl = document.createElement('video');
           videoEl.src = index === 1 ? video[0] : video[1];
+          videoEl.setAttribute('width', '100%');
+          videoEl.setAttribute('height', '100%');
           videoEl.setAttribute('autoplay', true);
           videoEl.setAttribute('roop', true);
           videoEl.classList.add('thumbnail');
