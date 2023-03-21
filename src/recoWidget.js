@@ -86,7 +86,7 @@ class RecoWidget extends HTMLElement {
       // const response = await fetch('http://localhost:4001/webcomponent/r');
       const response = await fetch('https://api.dable.io/webcomponent/r');
       const data = await response.json();
-      
+
       const widgetWrapEl = document.createElement('div');
       widgetWrapEl.classList.add('widget-wrap');
 
@@ -162,9 +162,9 @@ class RecoWidget extends HTMLElement {
     };
 
     try {
-      // this.shadowRoot.appendChild(template.content.cloneNode(true));
-      this.shadowRoot.appendChild(widgetScript);
-      // renderWidget();
+      this.shadowRoot.appendChild(template.content.cloneNode(true));
+      // this.shadowRoot.appendChild(widgetScript);
+      renderWidget();
     } catch (error) {
       console.log("error: ", error);
     }
