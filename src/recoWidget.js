@@ -142,11 +142,23 @@ class RecoWidget extends HTMLElement {
 
         if (index === 1 || index === 3) {
           const videoEl = document.createElement('video');
+
+          const handleVisibilityChange = () => {
+            if (document.hidden) {
+              videoEl.pause();
+            } else {
+              videoEl.play();
+            }
+          };
+          document.addEventListener('visibilitychange', handleVisibilityChange);
+
           videoEl.src = index === 1 ? video[0] : video[1];
           videoEl.setAttribute('width', '100%');
           videoEl.setAttribute('height', '100%');
           videoEl.setAttribute('autoplay', true);
           videoEl.setAttribute('roop', true);
+          videoEl.setAttribute('muted', true);
+          videoEl.setAttribute('poster', item.image.src);
           videoEl.classList.add('thumbnail');
           imageWrapperEl.appendChild(videoEl);
         } else {
