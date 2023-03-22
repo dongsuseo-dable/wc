@@ -3,12 +3,6 @@ template.innerHTML = `
   <link rel="stylesheet" href="https://static.dable.io/static/b/infinite-swipe/dist/swipe.min.css"/>
   <link rel="stylesheet" href="https://static.dable.io/dist/widget.v2.min.css?"/>
   <style type="text/css">.widget .title{font-size:16px;}.widget th,.widget td{text-align:left;}a{color:#6c6c6c;}.widget .item-link{font-size:12px;}.widget .title{border-color:#c2c2c2;}.widget .price{color:#000000;}.widget .price{font-size:12px;}.widget .saleprice{color:#777777;}.widget .saleprice{font-size:12px;}.widget .published_time{color:#000000;}.widget .published_time{font-size:12px;}.widget .author{color:#000000;}.widget .author{font-size:12px;}</style>
-  <style>
-    p {
-      color: blue;
-    }
-  </style>
-  <p>RECO WIDGET의 p 태그 색상은 blue !!!</p>
 `;
 
 const widgetScript = document.createElement('script');
@@ -81,7 +75,7 @@ class RecoWidget extends HTMLElement {
   connectedCallback() {
     const renderWidget = async () => {
       const response = await fetch('https://api.dable.io/webcomponent/r');
-      const { itemList: data, videoList: video } = await response.json();
+      const { itemList, videoList } = await response.json();
 
       const widgetWrapEl = document.createElement('div');
       widgetWrapEl.classList.add('widget-wrap');
@@ -123,7 +117,7 @@ class RecoWidget extends HTMLElement {
       widgetTargetPageEl.setAttribute('data-page', '1');
       widgetTargetPagesEl.appendChild(widgetTargetPageEl);
 
-      data.forEach((item, index) => {
+      itemList.forEach((item, index) => {
         const itemContainerEl = document.createElement('div');
         itemContainerEl.setAttribute('data-idx', `${index}`);
         itemContainerEl.setAttribute('data-item_id', item.item_id);
@@ -140,26 +134,21 @@ class RecoWidget extends HTMLElement {
         imageWrapperEl.classList.add('thumbnail-wrap', 'wh-ratio-16by10');
         itemWrapperEl.appendChild(imageWrapperEl);
 
-        if (index === 1 || index === 3) {
+        const isVideoItem = index % 2 === 1;
+        if (isVideoItem) {
           const videoEl = document.createElement('video');
-
-          const handleVisibilityChange = () => {
-            if (document.hidden) {
-              videoEl.pause();
-            } else {
-              videoEl.play();
-            }
-          };
-          document.addEventListener('visibilitychange', handleVisibilityChange);
-
-          videoEl.src = index === 1 ? video[0] : video[1];
           videoEl.setAttribute('width', '100%');
           videoEl.setAttribute('height', '100%');
-          videoEl.setAttribute('autoplay', true);
-          videoEl.setAttribute('roop', true);
-          videoEl.setAttribute('muted', true);
-          videoEl.setAttribute('poster', item.image.src);
+          videoEl.setAttribute('muted', 'muted');
+          videoEl.setAttribute('loop', 'loop');
+          videoEl.setAttribute('autoplay', 'autoplay');
+          videoEl.setAttribute('onloadstart', 'this.volume=0');
           videoEl.classList.add('thumbnail');
+
+          const sourceEl = document.createElement('source');
+          sourceEl.setAttribute('src', videoList.shift());
+          videoEl.appendChild(sourceEl);
+
           imageWrapperEl.appendChild(videoEl);
         } else {
           const imageEl = document.createElement('img');
