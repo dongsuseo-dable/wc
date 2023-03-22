@@ -2,7 +2,24 @@ const template = document.createElement('template');
 template.innerHTML = `
   <link rel="stylesheet" href="https://static.dable.io/static/b/infinite-swipe/dist/swipe.min.css"/>
   <link rel="stylesheet" href="https://static.dable.io/dist/widget.v2.min.css?"/>
-  <style type="text/css">.widget .title{font-size:16px;}.widget th,.widget td{text-align:left;}a{color:#6c6c6c;}.widget .item-link{font-size:12px;}.widget .title{border-color:#c2c2c2;}.widget .price{color:#000000;}.widget .price{font-size:12px;}.widget .saleprice{color:#777777;}.widget .saleprice{font-size:12px;}.widget .published_time{color:#000000;}.widget .published_time{font-size:12px;}.widget .author{color:#000000;}.widget .author{font-size:12px;}</style>
+  <style type="text/css">
+    .widget .title{font-size:16px;}.widget th,.widget td{text-align:left;}a{color:#6c6c6c;}.widget .item-link{font-size:12px;}.widget .title{border-color:#c2c2c2;}.widget .price{color:#000000;}.widget .price{font-size:12px;}.widget .saleprice{color:#777777;}.widget .saleprice{font-size:12px;}.widget .published_time{color:#000000;}.widget .published_time{font-size:12px;}.widget .author{color:#000000;}.widget .author{font-size:12px;}
+    .widget.widget--v .thumbnail-wrap{
+      width: 250px;
+      height: 156.25px;
+      margin-left: -250px;
+    }
+    .widget.widget--v .item {
+      padding-left: 250px;
+    }
+    .widget.widget--v .name,
+    .widget.widget--v .description {
+      padding-left: 30px;
+    }
+    .widget.widget--v .description {
+      color: darkgray;
+    }
+  </style>
 `;
 
 const widgetScript = document.createElement('script');
@@ -163,6 +180,11 @@ class RecoWidget extends HTMLElement {
         titleEl.textContent = item.title;
         itemWrapperEl.appendChild(titleEl);
 
+        const descriptionEl = document.createElement('div');
+        descriptionEl.classList.add('description');
+        descriptionEl.textContent = item.description;
+        itemWrapperEl.appendChild(descriptionEl);
+ 
         widgetTargetPageEl.appendChild(itemContainerEl);
       });
 
