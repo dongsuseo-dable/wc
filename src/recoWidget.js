@@ -94,7 +94,7 @@ class RecoWidget extends HTMLElement {
       widgetVEl.appendChild(widgetRecomendationsEl);
 
       const widgetTitleEl = document.createElement('h1');
-      widgetTitleEl.textContent = 'WebComponent Reco Widget';
+      widgetTitleEl.textContent = 'WebComponent Widget';
       widgetTitleEl.classList.add('title');
       widgetRecomendationsEl.appendChild(widgetTitleEl);
 
