@@ -1,3 +1,7 @@
+## 설명
+
+- Iframe > WebComponent 방식으로 전환하기 위한 검증 작업입니다.
+
 ## 문서
 
 - https://www.notion.so/dableglobal/Web-Component-widget-eeb34e1f8cb5421b9132963c41a0d9dd?pvs=4
